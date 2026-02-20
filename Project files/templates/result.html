@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Prediction Result</h2>
+
+    {% if result == "Fraud" %}
+        <div class="result-box fraud">
+            <h2>🚨 FRAUD DETECTED</h2>
+            <p><strong>Fraud Probability:</strong> {{ probability }}%</p>
+            <p>This transaction shows suspicious activity.</p>
+        </div>
+    {% else %}
+        <div class="result-box safe">
+            <h2>✅ SAFE TRANSACTION</h2>
+            <p><strong>Fraud Probability:</strong> {{ probability }}%</p>
+            <p>No suspicious activity detected.</p>
+        </div>
+    {% endif %}
+
+    <br>
+    <a href="/">
+        <button class="back-btn">Check Another Transaction</button>
+    </a>
+
+</div>
+
+</body>
+</html>

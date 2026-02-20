@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Payment Fraud Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Online Payment Fraud Detection</h1>
+
+    <form action="/predict" method="post">
+
+        <label>Step (Transaction Time)</label>
+        <input type="number" name="step" required>
+
+        <label>Transaction Amount</label>
+        <input type="number" step="0.01" name="amount" required>
+
+        <label>Old Balance (Sender)</label>
+        <input type="number" step="0.01" name="oldbalanceOrg" required>
+
+        <label>New Balance (Sender)</label>
+        <input type="number" step="0.01" name="newbalanceOrig" required>
+
+        <label>Old Balance (Receiver)</label>
+        <input type="number" step="0.01" name="oldbalanceDest" required>
+
+        <label>New Balance (Receiver)</label>
+        <input type="number" step="0.01" name="newbalanceDest" required>
+
+        <label>Transaction Type</label>
+        <select name="type" required>
+            <option value="">Select Type</option>
+            <option value="CASH_OUT">CASH_OUT</option>
+            <option value="DEBIT">DEBIT</option>
+            <option value="PAYMENT">PAYMENT</option>
+            <option value="TRANSFER">TRANSFER</option>
+            <option value="CASH_IN">CASH_IN</option>
+        </select>
+
+        <button type="submit">Check Transaction</button>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result 
+        {% if 'FRAUD' in prediction_text %}
+            danger
+        {% else %}
+            success
+        {% endif %}">
+        
+        <h2>{{ prediction_text }}</h2>
+        <p>{{ probability_text }}</p>
+
+    </div>
+{% endif %}
+
+
+</div>
+
+</body>
+</html>
+
+
